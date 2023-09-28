@@ -4,6 +4,8 @@ function App() {
   const [rootMember, setRootMember] = useState();
   const [spouses, setSpouses] = useState([]);
   const [siblings, setSiblings] = useState([]);
+  const [children, setChildren] = useState([]);
+
 
   useEffect(() => {
     const fetchRootMember = async() => {
@@ -45,6 +47,19 @@ function App() {
     };
 
     fetchSiblings();
+    
+    const fetchChildren = async() => {
+      try {
+        const response = await fetch("http://localhost:2345/api/members/1/children");
+        const data = await response.json();
+
+        setChildren(data);
+      } catch (error) {
+        console.log("Error");
+      }
+    };
+
+    fetchChildren();
   }, []);
 
   return (
@@ -68,6 +83,16 @@ function App() {
         {siblings ?
         <ul>
           {siblings.map((sibling) => <li>{sibling.name}</li>)}
+        </ul>
+        :
+        <p>Loading...</p>
+        }
+      </section>
+      <section>
+        <h2>Children</h2>
+        {children ?
+        <ul>
+          {children.map((child) => <li>{child.name}</li>)}
         </ul>
         :
         <p>Loading...</p>
