@@ -3,6 +3,7 @@ import MemberInfo from "../components/MemberInfo";
 import MemberList from "../components/MemberList";
 
 function App() {
+  const [rootMemberId, setRootMemberId] = useState(1);
   const [rootMember, setRootMember] = useState();
   const [spouses, setSpouses] = useState([]);
   const [siblings, setSiblings] = useState([]);
@@ -16,21 +17,25 @@ function App() {
     } catch (error) {
       console.log("Error:", error);
     }
-  }  
+  };
+
+  const handleClick = (memberId) => {
+    setRootMemberId(memberId);
+  };
 
   useEffect(() => {
-    fetchData("http://localhost:2345/api/members/1", setRootMember);
-    fetchData("http://localhost:2345/api/members/1/spouses", setSpouses);
-    fetchData("http://localhost:2345/api/members/1/siblings", setSiblings);
-    fetchData("http://localhost:2345/api/members/1/children", setChildren);
-  }, []);
+    fetchData(`http://localhost:2345/api/members/${rootMemberId}`, setRootMember);
+    fetchData(`http://localhost:2345/api/members/${rootMemberId}/spouses`, setSpouses);
+    fetchData(`http://localhost:2345/api/members/${rootMemberId}/siblings`, setSiblings);
+    fetchData(`http://localhost:2345/api/members/${rootMemberId}/children`, setChildren);
+  }, [rootMemberId]);
 
   return (
     <>
       <MemberInfo title="Root Member" data={rootMember} />
-      <MemberList title="Spouses" data={spouses} />
-      <MemberList title="Siblings" data={siblings} />
-      <MemberList title="Children" data={children} />
+      <MemberList title="Spouses" data={spouses} onClick={handleClick}/>
+      <MemberList title="Siblings" data={siblings} onClick={handleClick}/>
+      <MemberList title="Children" data={children} onClick={handleClick}/>
     </>
   );
 }
