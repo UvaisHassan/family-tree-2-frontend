@@ -36,7 +36,7 @@ function App() {
     <>
       <MemberInfo title="Root Member" data={rootMember} />
       <MemberList title="Parents" data={parents} onClick={handleClick}/>
-      <MemberList title="Spouses" data={spouses} onClick={handleClick}/>
+      <MemberList title="Spouse" data={spouses} onClick={handleClick}/>
       <MemberList title="Siblings" data={siblings} onClick={handleClick}/>
       <MemberList title="Children" data={children} onClick={handleClick}/>
     </>
