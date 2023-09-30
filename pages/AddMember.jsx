@@ -22,18 +22,18 @@ const AddMember = () => {
   const [filteredMotherMembers, setFilteredMotherMembers] = useState([]);
   const [filteredSpouseMembers, setFilteredSpouseMembers] = useState([]);
 
-  const fetchData = async (url, setStateFunction) => {
+  const fetchMembers = async (url) => {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      setStateFunction(data);
+      setMembers(data);
     } catch (error) {
       console.log("Error:", error);
     }
   };
 
   useEffect(() => {
-    fetchData(`http://localhost:2345/api/members`, setMembers);
+    fetchMembers(`http://localhost:2345/api/members`);
   }, []);
 
   const handleInputChange = (e) => {
@@ -99,6 +99,8 @@ const AddMember = () => {
       });
       const data = await response.json();
       console.log(data);
+
+      fetchMembers(`http://localhost:2345/api/members`);
     } catch (error) {
       console.log("Error:", error);
     }
