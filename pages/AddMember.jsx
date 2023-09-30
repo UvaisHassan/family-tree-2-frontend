@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 
 const AddMember = () => {
   const [formData, setFormData] = useState({
+    name: "",
+    gender: "",
     father_name: "",
     mother_name: "",
     spouse_name: "",
@@ -37,6 +39,10 @@ const AddMember = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+
+    if (name === "name" || name === "gender") {
+      setFormDataForSubmit({ ...formDataForSubmit, [name]: value });
+    }
 
     if (value === "") {
       setFilteredFatherMembers([]);
@@ -82,18 +88,51 @@ const AddMember = () => {
     setFilteredSpouseMembers([]);
   };
 
+  const postData = async (url) => {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formDataForSubmit),
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    postData(`http://localhost:2345/api/members`);
+  };
+
   return (
     <div>
       <h2>Add Member</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div>
           <label>Name: </label>
-          <input type="text" name="name" />
+          <input type="text" name="name" onChange={handleInputChange} />
         </div>
         <div>
-          <label>Gender: </label>
-          M <input type="radio" name="gender" value="m" />
-          F <input type="radio" name="gender" value="f" />
+          <label>Gender: </label>M{" "}
+          <input
+            type="radio"
+            name="gender"
+            value="M"
+            onChange={handleInputChange}
+          />
+          F{" "}
+          <input
+            type="radio"
+            name="gender"
+            value="F"
+            onChange={handleInputChange}
+          />
         </div>
         <div>
           <label>Father: </label>
@@ -158,6 +197,7 @@ const AddMember = () => {
             </ul>
           )}
         </div>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
