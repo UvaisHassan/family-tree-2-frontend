@@ -24,10 +24,9 @@ const AddMember = () => {
 
   useEffect(() => {
     fetchData(`http://localhost:2345/api/members`, setMembers);
-  });
+  }, []);
 
   const handleInputChange = (e) => {
-    console.log("beep");
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
