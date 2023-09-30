@@ -11,7 +11,7 @@ const AddMember = () => {
   const [formDataForSubmit, setFormDataForSubmit] = useState({
     name: "",
     gender: "",
-    // birthday: "",
+    birthday: "",
     father_id: "",
     mother_id: "",
     spouse_id: "",
@@ -69,17 +69,17 @@ const AddMember = () => {
     if (name === "father_name") {
       setFormDataForSubmit({
         ...formDataForSubmit,
-        father_id: selectedMember.id,
+        father_id: selectedMember._id,
       });
     } else if (name === "mother_name") {
       setFormDataForSubmit({
         ...formDataForSubmit,
-        mother_id: selectedMember.id,
+        mother_id: selectedMember._id,
       });
     } else if (name === "spouse_name") {
       setFormDataForSubmit({
         ...formDataForSubmit,
-        spouse_id: selectedMember.id,
+        spouse_id: selectedMember._id,
       });
     }
 
@@ -148,7 +148,7 @@ const AddMember = () => {
             <ul>
               {filteredFatherMembers.map((member) => (
                 <li
-                  key={member.id}
+                  key={member._id}
                   onClick={() => handleMemberSelect("father_name", member)}
                 >
                   {member.name}
@@ -169,7 +169,7 @@ const AddMember = () => {
             <ul>
               {filteredMotherMembers.map((member) => (
                 <li
-                  key={member.id}
+                  key={member._id}
                   onClick={() => handleMemberSelect("mother_name", member)}
                 >
                   {member.name}
@@ -190,7 +190,7 @@ const AddMember = () => {
             <ul>
               {filteredSpouseMembers.map((member) => (
                 <li
-                  key={member.id}
+                  key={member._id}
                   onClick={() => handleMemberSelect("spouse_name", member)}
                 >
                   {member.name}

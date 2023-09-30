@@ -5,7 +5,7 @@ const MemberList = ({ title, data, onClick }) => {
       {data ? (
         <ul>
           {data.map((item) => (
-            <li key={item.id} onClick={() => onClick(item.id)}>
+            <li key={item._id} onClick={() => onClick(item._id)}>
               {item.name}
             </li>
           ))}
