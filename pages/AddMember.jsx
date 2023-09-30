@@ -6,6 +6,14 @@ const AddMember = () => {
     mother_name: "",
     spouse_name: "",
   });
+  const [formDataForSubmit, setFormDataForSubmit] = useState({
+    name: "",
+    gender: "",
+    // birthday: "",
+    father_id: "",
+    mother_id: "",
+    spouse_id: "",
+  });
 
   const [members, setMembers] = useState([]);
   const [filteredFatherMembers, setFilteredFatherMembers] = useState([]);
@@ -51,6 +59,24 @@ const AddMember = () => {
 
   const handleMemberSelect = (name, selectedMember) => {
     setFormData({ ...formData, [name]: selectedMember.name });
+
+    if (name === "father_name") {
+      setFormDataForSubmit({
+        ...formDataForSubmit,
+        father_id: selectedMember.id,
+      });
+    } else if (name === "mother_name") {
+      setFormDataForSubmit({
+        ...formDataForSubmit,
+        mother_id: selectedMember.id,
+      });
+    } else if (name === "spouse_name") {
+      setFormDataForSubmit({
+        ...formDataForSubmit,
+        spouse_id: selectedMember.id,
+      });
+    }
+
     setFilteredFatherMembers([]);
     setFilteredMotherMembers([]);
     setFilteredSpouseMembers([]);
