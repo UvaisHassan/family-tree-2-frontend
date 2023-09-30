@@ -12,9 +12,9 @@ const AddMember = () => {
     name: "",
     gender: "",
     birthday: "",
-    father_id: "",
-    mother_id: "",
-    spouse_id: "",
+    father_id: null,
+    mother_id: null,
+    spouse_id: null,
   });
 
   const [members, setMembers] = useState([]);
