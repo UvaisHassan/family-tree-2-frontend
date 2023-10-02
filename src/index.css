@@ -1,12 +1,55 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 /* Set a background color and font family */
 body {
   background-color: #f7f7f7;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+  background-color: darkolivegreen;
+  color: white;
+}
+
+.header-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  /* border: 1px solid black; */
+}
+
+.header-container h1 {
+  padding: 1rem 0;
+}
+
+.header-container ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.header-container li {
+  flex: 1;
+  background-color: cadetblue;
+  padding: 0.5rem 0;
+}
+
+.header-container li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  /* border: 1px solid black; */
 }
 
 /* Section styles */
@@ -18,16 +61,16 @@ section {
   border-radius: 5px;
 }
 
-h2 {
+section h2 {
   font-size: 24px;
   margin-bottom: 10px;
 }
 
 /* List styles */
-ul {
+section ul {
   list-style: none;
 }
 
-li {
+section li {
   margin-bottom: 5px;
 }

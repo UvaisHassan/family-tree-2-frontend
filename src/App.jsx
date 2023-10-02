@@ -1,13 +1,19 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import AddMember from "../pages/AddMember";
+import Header from "../components/Header";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/addmember" element={<AddMember />} />
-    </Routes>
+    <>
+      <Header />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/addmember" element={<AddMember />} />
+        </Routes>
+      </main>
+    </>
   );
 }
 
