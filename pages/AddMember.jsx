@@ -17,13 +17,16 @@ const AddMember = () => {
     spouse_id: null,
   });
 
+  const [query, setQuery] = useState("");
   const [members, setMembers] = useState([]);
-  const [filteredFatherMembers, setFilteredFatherMembers] = useState([]);
-  const [filteredMotherMembers, setFilteredMotherMembers] = useState([]);
-  const [filteredSpouseMembers, setFilteredSpouseMembers] = useState([]);
+  const [activeField, setActiveField] = useState("");
 
-  const fetchMembers = async (url) => {
+  const API_URL = "http://localhost:2345/api/members/search";
+
+  const fetchMembersWithSearch = async (base_url) => {
     try {
+      const url = new URL(base_url);
+      url.search = new URLSearchParams({ query: query }).toString();
       const response = await fetch(url);
       const data = await response.json();
       setMembers(data);
@@ -33,8 +36,10 @@ const AddMember = () => {
   };
 
   useEffect(() => {
-    fetchMembers(`http://localhost:2345/api/members`);
-  }, []);
+    if (query !== "") {
+      fetchMembersWithSearch(API_URL);
+    }
+  }, [query]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -42,24 +47,9 @@ const AddMember = () => {
 
     if (name === "name" || name === "gender") {
       setFormDataForSubmit({ ...formDataForSubmit, [name]: value });
-    }
-
-    if (value === "") {
-      setFilteredFatherMembers([]);
-      setFilteredMotherMembers([]);
-      setFilteredSpouseMembers([]);
     } else {
-      const filtered = members.filter((member) =>
-        member.name.toLowerCase().startsWith(value.toLowerCase())
-      );
-
-      if (name === "father_name") {
-        setFilteredFatherMembers(filtered);
-      } else if (name === "mother_name") {
-        setFilteredMotherMembers(filtered);
-      } else if (name === "spouse_name") {
-        setFilteredSpouseMembers(filtered);
-      }
+      setQuery(value);
+      setActiveField(name);
     }
   };
 
@@ -83,9 +73,7 @@ const AddMember = () => {
       });
     }
 
-    setFilteredFatherMembers([]);
-    setFilteredMotherMembers([]);
-    setFilteredSpouseMembers([]);
+    setActiveField("");
   };
 
   const postData = async (url) => {
@@ -99,8 +87,6 @@ const AddMember = () => {
       });
       const data = await response.json();
       console.log(data);
-
-      fetchMembers(`http://localhost:2345/api/members`);
     } catch (error) {
       console.log("Error:", error);
     }
@@ -144,9 +130,9 @@ const AddMember = () => {
             value={formData.father_name}
             onChange={handleInputChange}
           />
-          {filteredFatherMembers.length > 0 && (
+          {query !== "" && activeField === "father_name" && (
             <ul>
-              {filteredFatherMembers.map((member) => (
+              {members.map((member) => (
                 <li
                   key={member._id}
                   onClick={() => handleMemberSelect("father_name", member)}
@@ -165,9 +151,9 @@ const AddMember = () => {
             value={formData.mother_name}
             onChange={handleInputChange}
           />
-          {filteredMotherMembers.length > 0 && (
+          {query !== "" && activeField === "mother_name" && (
             <ul>
-              {filteredMotherMembers.map((member) => (
+              {members.map((member) => (
                 <li
                   key={member._id}
                   onClick={() => handleMemberSelect("mother_name", member)}
@@ -186,9 +172,9 @@ const AddMember = () => {
             value={formData.spouse_name}
             onChange={handleInputChange}
           />
-          {filteredSpouseMembers.length > 0 && (
+          {query !== "" && activeField === "spouse_name" && (
             <ul>
-              {filteredSpouseMembers.map((member) => (
+              {members.map((member) => (
                 <li
                   key={member._id}
                   onClick={() => handleMemberSelect("spouse_name", member)}
