@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useApi from "../hooks/useApi";
 import InputField from "./InputField";
+import FormMemberList from "./FormMemberList";
+import GenderField from "./GenderField";
 
 const Form = () => {
   const [formData, setFormData] = useState({
@@ -13,13 +15,15 @@ const Form = () => {
 
   const [activeField, setActiveField] = useState("");
 
-  const API_URL = "http://localhost:2345/api/members/search";
+  const API_URL = "http://localhost:2345/api/members";
+  const API_URL_SEARCH = "http://localhost:2345/api/members/search";
+
   const {
     data: members,
     setData: setMembers,
     query,
     setQuery,
-  } = useApi(API_URL);
+  } = useApi(API_URL_SEARCH);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -60,9 +64,11 @@ const Form = () => {
     setActiveField("");
   };
 
-  const postData = async (url) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     try {
-      const response = await fetch(url, {
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,12 +82,6 @@ const Form = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    postData(`http://localhost:2345/api/members`);
-  };
-
   return (
     <form onSubmit={handleSubmit}>
       <InputField
@@ -90,22 +90,7 @@ const Form = () => {
         value={formData.name}
         onChange={handleInputChange}
       />
-      <div>
-        <label>Gender: </label>M{" "}
-        <input
-          type="radio"
-          name="gender"
-          value="M"
-          onChange={handleInputChange}
-        />
-        F{" "}
-        <input
-          type="radio"
-          name="gender"
-          value="F"
-          onChange={handleInputChange}
-        />
-      </div>
+      <GenderField handleInputChange={handleInputChange} />
       <div>
         <InputField
           label="Father"
@@ -113,17 +98,12 @@ const Form = () => {
           value={formData.father_name}
           onChange={handleInputChange}
         />
-        {query !== "" && activeField === "father_name" && (
-          <ul>
-            {members.map((member) => (
-              <li
-                key={member._id}
-                onClick={() => handleMemberSelect("father_name", member)}
-              >
-                {member.name}
-              </li>
-            ))}
-          </ul>
+        {activeField === "father_name" && query !== "" && (
+          <FormMemberList
+            members={members}
+            field_name="father_name"
+            handleMemberSelect={handleMemberSelect}
+          />
         )}
       </div>
       <div>
@@ -134,17 +114,12 @@ const Form = () => {
           onChange={handleInputChange}
         />
 
-        {query !== "" && activeField === "mother_name" && (
-          <ul>
-            {members.map((member) => (
-              <li
-                key={member._id}
-                onClick={() => handleMemberSelect("mother_name", member)}
-              >
-                {member.name}
-              </li>
-            ))}
-          </ul>
+        {activeField === "mother_name" && query !== "" && (
+          <FormMemberList
+            members={members}
+            field_name="mother_name"
+            handleMemberSelect={handleMemberSelect}
+          />
         )}
       </div>
       <div>
@@ -155,17 +130,12 @@ const Form = () => {
           onChange={handleInputChange}
         />
 
-        {query !== "" && activeField === "spouse_name" && (
-          <ul>
-            {members.map((member) => (
-              <li
-                key={member._id}
-                onClick={() => handleMemberSelect("spouse_name", member)}
-              >
-                {member.name}
-              </li>
-            ))}
-          </ul>
+        {activeField === "spouse_name" && query !== "" && (
+          <FormMemberList
+            members={members}
+            field_name="spouse_name"
+            handleMemberSelect={handleMemberSelect}
+          />
         )}
       </div>
       <button type="submit">Submit</button>
