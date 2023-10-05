@@ -26,23 +26,33 @@ const Home = () => {
 
   useEffect(() => {
     fetchData(
-      `http://localhost:2345/api/members/${rootMemberId}`,
+      `http://${import.meta.env.VITE_IP_ADDR}:${
+        import.meta.env.VITE_PORT
+      }/api/members/${rootMemberId}`,
       setRootMember
     );
     fetchData(
-      `http://localhost:2345/api/members/${rootMemberId}/parents`,
+      `http://${import.meta.env.VITE_IP_ADDR}:${
+        import.meta.env.VITE_PORT
+      }/api/members/${rootMemberId}/parents`,
       setParents
     );
     fetchData(
-      `http://localhost:2345/api/members/${rootMemberId}/spouses`,
+      `http://${import.meta.env.VITE_IP_ADDR}:${
+        import.meta.env.VITE_PORT
+      }/api/members/${rootMemberId}/spouses`,
       setSpouses
     );
     fetchData(
-      `http://localhost:2345/api/members/${rootMemberId}/siblings`,
+      `http://${import.meta.env.VITE_IP_ADDR}:${
+        import.meta.env.VITE_PORT
+      }/api/members/${rootMemberId}/siblings`,
       setSiblings
     );
     fetchData(
-      `http://localhost:2345/api/members/${rootMemberId}/children`,
+      `http://${import.meta.env.VITE_IP_ADDR}:${
+        import.meta.env.VITE_PORT
+      }/api/members/${rootMemberId}/children`,
       setChildren
     );
   }, [rootMemberId]);
