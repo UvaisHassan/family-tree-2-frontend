@@ -14,6 +14,7 @@ const Form = () => {
   });
 
   const [activeField, setActiveField] = useState("");
+  const [isSpouseNew, setIsSpouseNew] = useState(false);
 
   const API_URL = "http://localhost:2345/api/members";
   const API_URL_SEARCH = "http://localhost:2345/api/members/search";
@@ -77,6 +78,23 @@ const Form = () => {
       });
       const data = await response.json();
       console.log(data);
+
+      if (isSpouseNew) {
+        const newMemberResponse = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            _id: formData.spouse_id,
+            name: formData.spouse_name,
+            gender: formData.gender === "M" ? "F" : "M",
+            spouse_id: data._id,
+          }),
+        });
+        const newMemberData = await newMemberResponse.json();
+        console.log(newMemberData);
+      }
     } catch (error) {
       console.log("Error:", error);
     }
@@ -103,6 +121,8 @@ const Form = () => {
             members={members}
             field_name="father_name"
             handleMemberSelect={handleMemberSelect}
+            new_name={formData.father_name}
+            setIsSpouseNew={setIsSpouseNew}
           />
         )}
       </div>
@@ -119,6 +139,8 @@ const Form = () => {
             members={members}
             field_name="mother_name"
             handleMemberSelect={handleMemberSelect}
+            new_name={formData.mother_name}
+            setIsSpouseNew={setIsSpouseNew}
           />
         )}
       </div>
@@ -135,6 +157,8 @@ const Form = () => {
             members={members}
             field_name="spouse_name"
             handleMemberSelect={handleMemberSelect}
+            new_name={formData.spouse_name}
+            setIsSpouseNew={setIsSpouseNew}
           />
         )}
       </div>
