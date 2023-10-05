@@ -27,6 +27,3 @@ jobs:
     - run: |
         npm ci
         npm run build
-    - name: Copy dist folder to nginx directory
-      run: |
-        sudo cp -r dist /usr/share/nginx/frontend
