@@ -10,11 +10,6 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-header {
-  background-color: darkolivegreen;
-  color: white;
-}
-
 .header-container {
   max-width: 800px;
   margin: 0 auto;
@@ -37,12 +32,12 @@ header {
 
 .header-container li {
   flex: 1;
-  background-color: cadetblue;
-  padding: 0.5rem 0;
+  /* background-color: cadetblue; */
+  /* padding: 0.5rem 0; */
 }
 
 .header-container li a {
-  text-decoration: none;
+  /* text-decoration: none; */
   color: inherit;
 }
 
