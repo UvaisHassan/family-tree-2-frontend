@@ -27,4 +27,4 @@ jobs:
     - run: |
         npm ci
         npm run build
-    - working-directory: /usr/share/nginx/frontend
+      working-directory: /usr/share/nginx/frontend
