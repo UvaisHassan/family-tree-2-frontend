@@ -16,8 +16,12 @@ const Form = () => {
   const [activeField, setActiveField] = useState("");
   const [isSpouseNew, setIsSpouseNew] = useState(false);
 
-  const API_URL = "http://localhost:2345/api/members";
-  const API_URL_SEARCH = "http://localhost:2345/api/members/search";
+  const API_URL = `http://${import.meta.env.VITE_IP_ADDR}:${
+    import.meta.env.VITE_PORT
+  }/api/members`;
+  const API_URL_SEARCH = `http://${import.meta.env.VITE_IP_ADDR}:${
+    import.meta.env.VITE_PORT
+  }/api/members/search`;
 
   const {
     data: members,
