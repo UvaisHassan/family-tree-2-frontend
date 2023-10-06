@@ -3,7 +3,7 @@ import MemberInfo from "../components/MemberInfo";
 import MemberList from "../components/MemberList";
 
 const Home = () => {
-  const [rootMemberId, setRootMemberId] = useState("5f6a07f8554bfc5f734e9bf2");
+  const [rootMemberId, setRootMemberId] = useState("6520154392b7cd0c1caaa98d");
   const [rootMember, setRootMember] = useState();
   const [parents, setParents] = useState([]);
   const [spouses, setSpouses] = useState([]);
